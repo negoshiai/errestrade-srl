@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errestrade Srl - Ingegneria Civile e Costruzioni Stradali</title>
+    <meta name="description" content="Errestrade Srl è un'azienda leader nel settore delle costruzioni civili e stradali, specializzata in movimento terra, demolizioni, acquedotti e opere in cemento armato.">
+    <meta name="keywords" content="costruzioni stradali, ingegneria civile, movimento terra, demolizioni, asfalti, Errestrade, SOA, ISO 9001">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary-red: #D81E05;
+            --color-core-charcoal: #25282A;
+            --color-secondary-grey: #66717E;
+            --color-accent-blue: #007BFF;
+            --color-background-offwhite: #F7F7F7;
+            --color-white: #FFFFFF;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Lato', sans-serif;
+            --transition-speed: 0.3s;
+        }
+
+        /* --- Global Styles & Reset --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-core-charcoal);
+            color: var(--color-secondary-grey);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .cursor-dot, .cursor-outline {
+            pointer-events: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-primary-red);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(216, 30, 5, 0.3);
+            transition: all 0.1s ease-out;
+        }
+        
+        .cursor-dot.hidden, .cursor-outline.hidden {
+            opacity: 0;
+        }
+        
+        .cursor-outline.hovered {
+             transform: translate(-50%, -50%) scale(1.5);
+             background-color: rgba(216, 30, 5, 0.1);
+        }
+
+        /* --- Layout & Typography --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--color-white);
+            font-weight: 700;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background-color: var(--color-primary-red);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--color-background-offwhite);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-secondary-grey);
+        }
+
+        a {
+            color: var(--color-primary-red);
+            text-decoration: none;
+            transition: color var(--transition-speed) ease;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-bg {
+             background-color: var(--color-background-offwhite);
+        }
+        
+        .section-bg h2, .section-bg h3 {
+             color: var(--color-core-charcoal);
+        }
+        .section-bg p {
+             color: #444;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--color-primary-red);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-weight: 700;
+            border-radius: 5px;
+            border: 2px solid var(--color-primary-red);
+            transition: all var(--transition-speed) ease;
+            box-shadow: 0 5px 15px rgba(216, 30, 5, 0.2);
+        }
+        .btn:hover {
+            background-color: transparent;
+            color: var(--color-primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(216, 30, 5, 0.3);
+        }
+        
+        /* --- Animation on Scroll --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header --- */
+        .main-header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            background-color: rgba(37, 40, 42, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: padding var(--transition-speed) ease;
+        }
+        
+        .main-header.scrolled {
+             padding: 0.5rem 0;
+             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color-white);
+        }
+        .logo span {
+            color: var(--color-primary-red);
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-nav li {
+            margin-left: 2rem;
+        }
+
+        .main-nav a {
+            color: var(--color-white);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--color-primary-red);
+            transition: width var(--transition-speed) ease;
+        }
+        .main-nav a:hover::after, .main-nav a.active::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            color: var(--color-secondary-grey);
+            font-size: 0.9rem;
+            margin-left: 2rem;
+        }
+        .lang-switcher span {
+            cursor: pointer;
+            padding: 0 0.3rem;
+        }
+        .lang-switcher .active {
+            color: var(--color-white);
+            font-weight: 700;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .mobile-menu-toggle .hamburger {
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-white);
+            display: block;
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+        .mobile-menu-toggle .hamburger::before,
+        .mobile-menu-toggle .hamburger::after {
+            content: '';
+            width: 30px;
+            height: 2px;
+            background-color: var(--color-white);
+            position: absolute;
+            left: 0;
+            transition: all var(--transition-speed) ease;
+        }
+        .mobile-menu-toggle .hamburger::before {
+            top: -8px;
+        }
+        .mobile-menu-toggle .hamburger::after {
+            bottom: -8px;
+        }
+        
+        body.nav-open .mobile-menu-toggle .hamburger {
+            background-color: transparent;
+        }
+        body.nav-open .mobile-menu-toggle .hamburger::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+        body.nav-open .mobile-menu-toggle .hamburger::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+        }
+
+        /* --- Hero Section --- */
+        #home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--color-white);
+            padding: 0 2rem;
+            position: relative;
+        }
+        
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+
+        #home .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(37, 40, 42, 0.9), rgba(37, 40, 42, 0.5));
+            z-index: -1;
+        }
+        
+        #home h1 {
+            margin-bottom: 1rem;
+        }
+        
+        #home p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* --- Trust Bar Section --- */
+        #trust-bar {
+            background-color: #1e2123;
+            padding: 2rem 0;
+        }
+        #trust-bar .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .certification-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--color-secondary-grey);
+        }
+        .certification-item svg {
+            width: 80px;
+            height: 40px;
+            fill: var(--color-secondary-grey);
+            margin-bottom: 0.5rem;
+            opacity: 0.7;
+        }
+        .certification-item span {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* --- Diagonal Separator --- */
+        .diagonal-separator {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 10vw;
+            max-height: 150px;
+            background: var(--color-background-offwhite);
+            clip-path: polygon(0 100%, 100% 0, 100% 100%);
+            z-index: 10;
+        }
+        
+        .diagonal-separator.top {
+            top: -1px;
+            bottom: auto;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+            background: var(--color-core-charcoal);
+        }
+        
+        /* --- Services Section --- */
+        #servizi {
+            position: relative;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .service-card {
+            background: var(--color-white);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all var(--transition-speed) ease;
+            border-bottom: 4px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-bottom-color: var(--color-primary-red);
+        }
+        .service-card .icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem auto;
+            color: var(--color-primary-red);
+        }
+        
+        /* --- About Us Section --- */
+        #chisiamo .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        #chisiamo img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        }
+
+        /* --- Fleet Section --- */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        .fleet-card {
+            background-color: var(--color-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            height: 400px;
+            perspective: 1000px;
+        }
+        .fleet-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .fleet-card:hover .fleet-card-inner {
+            transform: rotateY(180deg);
+        }
+        .fleet-card-front, .fleet-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        .fleet-card-front {
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+        }
+        .fleet-card-front .title {
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+        }
+        .fleet-card-back {
+            background-color: var(--color-accent-blue);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .fleet-card-back h3 {
+             color: white;
+        }
+        .fleet-card-back ul {
+            list-style: none;
+            text-align: left;
+        }
+        .fleet-card-back li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Projects Section --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 4rem;
+        }
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            height: 300px;
+        }
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .project-item:hover img {
+            transform: scale(1.1);
+        }
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(216, 30, 5, 0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .project-item:hover .project-overlay {
+            opacity: 1;
+        }
+        .project-overlay h4 {
+            color: var(--color-white);
+            font-size: 1.2rem;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+        .project-item:hover .project-overlay h4 {
+            transform: translateY(0);
+        }
+        
+        /* --- Contact Section --- */
+        #contatti .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: #333638;
+            border: 1px solid var(--color-secondary-grey);
+            border-radius: 5px;
+            color: var(--color-white);
+            font-family: var(--font-body);
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-primary-red);
+            box-shadow: 0 0 0 2px rgba(216, 30, 5, 0.3);
+        }
+        .contact-info ul {
+            list-style: none;
+        }
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        .contact-info .icon {
+            color: var(--color-primary-red);
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: #1e2123;
+            padding: 4rem 0 2rem 0;
+            color: var(--color-secondary-grey);
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #333638;
+            padding-bottom: 3rem;
+        }
+        .footer-about, .footer-links, .footer-contact {
+            flex: 1;
+            min-width: 250px;
+        }
+        .footer-about .logo {
+            margin-bottom: 1rem;
+        }
+        .footer-links ul, .footer-contact ul {
+            list-style: none;
+        }
+        .footer-links a {
+            color: var(--color-secondary-grey);
+        }
+        .footer-links a:hover {
+            color: var(--color-white);
+        }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .social-links a {
+            color: var(--color-secondary-grey);
+            margin-left: 1rem;
+            font-size: 1.2rem;
+        }
+        .social-links a:hover {
+            color: var(--color-primary-red);
+        }
+
+        /* --- Responsive Styles --- */
+        @media (max-width: 992px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .main-nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--color-core-charcoal);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right var(--transition-speed) ease-in-out;
+            }
+            body.nav-open .main-nav {
+                right: 0;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.2);
+            }
+            .main-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            .main-nav li {
+                margin: 1.5rem 0;
+            }
+            .main-nav a {
+                font-size: 1.2rem;
+            }
+            .lang-switcher { display: none; } /* Simplified for mobile menu */
+            .mobile-menu-toggle { display: block; }
+            
+            #chisiamo .container, #contatti .container {
+                grid-template-columns: 1fr;
+            }
+            .project-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+             body {
+                cursor: auto;
+             }
+            .cursor-dot, .cursor-outline {
+                display: none;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="main-header" id="main-header">
+        <div class="header-container">
+            <a href="#home" class="logo">ERREST<span>R</span>ADE</a>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#chisiamo" class="nav-link">Chi Siamo</a></li>
+                    <li><a href="#servizi" class="nav-link">Servizi</a></li>
+                    <li><a href="#parco-macchine" class="nav-link">Parco Macchine</a></li>
+                    <li><a href="#progetti" class="nav-link">Progetti</a></li>
+                    <li><a href="#contatti" class="nav-link">Contatti</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                 <span class="lang-switcher"><span class="active">IT</span> | <span>EN</span></span>
+                 <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home">
+            <div class="overlay"></div>
+            <video autoplay muted loop playsinline id="hero-video">
+                <source src="https://videos.pexels.com/video-files/5969516/5969516-hd_1920_1080_25fps.mp4" type="video/mp4">
+            </video>
+            <div class="container text-center">
+                <h1 class="reveal">Costruiamo Valore, Dalle Fondamenta.</h1>
+                <p class="reveal" style="transition-delay: 0.2s;">Ingegneria Civile. Precisione e Affidabilità sul Campo per opere che durano nel tempo.</p>
+                <a href="#servizi" class="btn reveal" style="transition-delay: 0.4s;">Scopri i Nostri Servizi</a>
+            </div>
+        </section>
+
+        <!-- Trust Bar -->
+        <section id="trust-bar">
+            <div class="container">
+                <div class="certification-item reveal">
+                    <svg viewBox="0 0 100 50"><text x="50" y="30" font-size="20" text-anchor="middle" font-weight="bold">SOA</text></svg>
+                    <span>Certificazione SOA</span>
+                </div>
+                <div class="certification-item reveal" style="transition-delay: 0.1s;">
+                     <svg viewBox="0 0 100 50"><text x="50" y="30" font-size="16" text-anchor="middle" font-weight="bold">ISO 9001</text></svg>
+                    <span>Qualità Certificata</span>
+                </div>
+                 <div class="certification-item reveal" style="transition-delay: 0.2s;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"></path></svg>
+                    <span>Sicurezza sul Lavoro</span>
+                </div>
+                <div class="certification-item reveal" style="transition-delay: 0.3s;">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"></path></svg>
+                    <span>Rispetto Ambientale</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Us Section -->
+        <section id="chisiamo">
+            <div class="diagonal-separator top"></div>
+            <div class="container">
+                <div class="about-image reveal">
+                    <img src="https://images.pexels.com/photos/834892/pexels-photo-834892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Team Errestrade al lavoro">
+                </div>
+                <div class="about-content reveal" style="transition-delay: 0.2s;">
+                    <h2>La nostra storia, il vostro futuro.</h2>
+                    <p>Fondata su principi di solidità e competenza, Errestrade Srl opera da decenni nel settore dell'ingegneria civile. La nostra missione è realizzare infrastrutture di alta qualità, combinando l'esperienza del nostro personale qualificato con un parco macchine moderno e di proprietà.</p>
+                    <p>Dalla progettazione alla consegna finale, garantiamo il massimo controllo su ogni fase del processo costruttivo, assicurando risultati eccellenti, puntuali e conformi alle più stringenti normative di settore.</p>
+                    <a href="#contatti" class="btn">Contattaci per un progetto</a>
+                </div>
+            </div>
+            <div class="diagonal-separator"></div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servizi" class="section-bg">
+            <div class="container text-center">
+                <h2 class="reveal">Servizi Completi per l'Ingegneria Civile</h2>
+                <p class="reveal" style="max-width: 700px; margin: 0 auto 4rem auto;">Copriamo l'intero ciclo di vita del progetto, dalla demolizione alla costruzione finale, con soluzioni su misura per enti pubblici e privati.</p>
+                <div class="services-grid">
+                    <div class="service-card reveal" style="transition-delay: 0.1s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 4h-2v7.5h2V4zM4 4h2v16H4V4zm4 0h2v4h-2V4zm0 6h2v4h-2v-4zm0 6h2v4h-2v-4zm12.5-2.5h-2.5v-2h-2v2h-2.5v2h2.5v2h2v-2h2.5v-2zM14 4h2v4h-2V4zm0 6h2v4h-2v-4z"/></svg></div>
+                        <h3>Costruzioni Stradali</h3>
+                        <p>Realizzazione e manutenzione di infrastrutture viarie, asfalti, pavimentazioni e opere connesse.</p>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 0.2s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 20h2c.55 0 1-.45 1-1v-3h12v3c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-5.28c0-.43-.28-.8-.68-.95l-7.32-2.73-7.32 2.73c-.4.15-.68.52-.68.95V19c0 .55.45 1 1 1zM11 2h2v4.28l-1 1.87-1-1.87V2zM3.5 11l6-2.25V6H8l-4.5 9zM19.5 11l-4.5-9H14v2.75l6 2.25z"/></svg></div>
+                        <h3>Movimento Terra</h3>
+                        <p>Scavi, sbancamenti e modellazione del terreno con macchinari di precisione per ogni tipo di cantiere.</p>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 0.3s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 19.5V22h2.5l13.88-13.88-2.5-2.5L2 19.5zm18.81-12.27c.39-.39.39-1.02 0-1.41l-1.09-1.09c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 2.5 2.5 1.83-1.83zM1 18h16v2H1v-2z"/></svg></div>
+                        <h3>Demolizioni</h3>
+                        <p>Demolizioni controllate di strutture civili e industriali, con gestione completa dei materiali di risulta.</p>
+                    </div>
+                    <div class="service-card reveal" style="transition-delay: 0.4s;">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M22 11h-2.17C19.3 7.31 16.09 4.5 12 4.5S4.7 7.31 4.17 11H2c-1.1 0-2 .9-2 2s.9 2 2 2h2.17c.53 3.69 3.74 6.5 7.83 6.5s7.3-2.81 7.83-6.5H22c1.1 0 2-.9 2-2s-.9-2-2-2zm-10 6.5c-2.97 0-5.4-2.43-5.4-5.4s2.43-5.4 5.4-5.4 5.4 2.43 5.4 5.4-2.43 5.4-5.4 5.4zM12 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
+                        <h3>Acquedotti e Fognature</h3>
+                        <p>Costruzione e posa di reti idriche e fognarie, garantendo efficienza e durabilità delle opere idrauliche.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fleet Section -->
+        <section id="parco-macchine">
+            <div class="container text-center">
+                <h2 class="reveal">Il Nostro Parco Macchine</h2>
+                <p class="reveal" style="max-width: 700px; margin: 0 auto;">Un asset strategico di proprietà per garantire massima efficienza e flessibilità. La nostra flotta moderna è la prova della nostra capacità operativa.</p>
+                <div class="fleet-grid">
+                    <div class="fleet-card reveal" style="transition-delay: 0.1s;">
+                        <div class="fleet-card-inner">
+                            <div class="fleet-card-front" style="background-image: url('https://images.pexels.com/photos/1078884/pexels-photo-1078884.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                                <div class="title">Escavatori</div>
+                            </div>
+                            <div class="fleet-card-back">
+                                <h3>Specifiche Escavatori</h3>
+                                <ul>
+                                    <li>- Modelli da 15 a 40 tonnellate</li>
+                                    <li>- Tecnologia GPS per scavi di precisione</li>
+                                    <li>- Accessori per demolizione e frantumazione</li>
+                                    <li>- Manutenzione programmata</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-card reveal" style="transition-delay: 0.2s;">
+                         <div class="fleet-card-inner">
+                            <div class="fleet-card-front" style="background-image: url('https://images.pexels.com/photos/585419/pexels-photo-585419.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                                <div class="title">Finitrici e Rulli</div>
+                            </div>
+                            <div class="fleet-card-back">
+                                <h3>Asfaltatura e Compattazione</h3>
+                                <ul>
+                                    <li>- Finitrici per larghezze da 2.5 a 9 metri</li>
+                                    <li>- Rulli tandem e gommati</li>
+                                    <li>- Sistemi di controllo temperatura e spessore</li>
+                                    <li>- Massima uniformità del manto</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fleet-card reveal" style="transition-delay: 0.3s;">
+                         <div class="fleet-card-inner">
+                            <div class="fleet-card-front" style="background-image: url('https://images.pexels.com/photos/1216557/pexels-photo-1216557.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');">
+                                <div class="title">Autocarri e Mezzi d'Opera</div>
+                            </div>
+                            <div class="fleet-card-back">
+                                <h3>Logistica e Trasporto</h3>
+                                <ul>
+                                    <li>- Autocarri 4 assi e bilici</li>
+                                    <li>- Trasporto materiali inerti e speciali</li>
+                                    <li>- Conformità normativa Euro 6</li>
+                                    <li>- Efficienza logistica del cantiere</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="progetti" class="section-bg">
+            <div class="diagonal-separator top" style="background: var(--color-background-offwhite);"></div>
+            <div class="container text-center">
+                <h2 class="reveal">Progetti Realizzati</h2>
+                <p class="reveal" style="max-width: 700px; margin: 0 auto;">Il nostro portfolio è la migliore testimonianza della nostra competenza. Lavori che parlano di qualità, efficienza e valore.</p>
+                <div class="project-grid">
+                    <a href="#" class="project-item reveal">
+                        <img src="https://images.pexels.com/photos/7245464/pexels-photo-7245464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Progetto Lottizzazione Residenziale">
+                        <div class="project-overlay"><h4>Lottizzazione Residenziale - Verona</h4></div>
+                    </a>
+                    <a href="#" class="project-item reveal" style="transition-delay: 0.1s;">
+                        <img src="https://images.pexels.com/photos/3159959/pexels-photo-3159959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Progetto Viabilità Provinciale">
+                        <div class="project-overlay"><h4>Riqualifica Viabilità Provinciale SP24</h4></div>
+                    </a>
+                    <a href="#" class="project-item reveal" style="transition-delay: 0.2s;">
+                        <img src="https://images.pexels.com/photos/6339626/pexels-photo-6339626.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Progetto Rete Fognaria">
+                        <div class="project-overlay"><h4>Ampliamento Rete Fognaria - Comune di Mantova</h4></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contatti">
+            <div class="container">
+                <div class="contact-form reveal">
+                    <h2>Pronti a Costruire Insieme?</h2>
+                    <p>Contattateci per una consulenza, un preventivo o per discutere le esigenze del vostro prossimo progetto. Il nostro team tecnico è a vostra completa disposizione.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Il Vostro Nome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="La Vostra Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="subject" placeholder="Oggetto della Richiesta" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="message" rows="5" placeholder="Descrivete il vostro progetto" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Invia Messaggio</button>
+                    </form>
+                </div>
+                <div class="contact-info reveal" style="transition-delay: 0.2s;">
+                    <h3>Informazioni di Contatto</h3>
+                    <ul>
+                        <li>
+                           <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+                           <div>
+                                <strong>Sede Operativa</strong><br>
+                                Via dell'Industria, 123<br>
+                                46100 Mantova (MN), Italia
+                           </div>
+                        </li>
+                        <li>
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.02.75-.25 1.02l-2.2 2.2z"/></svg></div>
+                            <div>
+                                <strong>Telefono</strong><br>
+                                <a href="tel:+390376123456">+39 0376 123456</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+                            <div>
+                                <strong>Email</strong><br>
+                                <a href="mailto:info@errestrade.it">info@errestrade.it</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="#home" class="logo">ERREST<span>R</span>ADE</a>
+                    <p>Costruiamo valore, dalle fondamenta. Specialisti in ingegneria civile, costruzioni stradali, e grandi opere.</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Link Utili</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#chisiamo">Chi Siamo</a></li>
+                        <li><a href="#servizi">Servizi</a></li>
+                        <li><a href="#progetti">Progetti</a></li>
+                        <li><a href="#contatti">Contatti</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contatti</h3>
+                    <ul>
+                        <li>Indirizzo: Via Industria 123, Mantova</li>
+                        <li>Tel: <a href="tel:+390376123456">+39 0376 123456</a></li>
+                        <li>Email: <a href="mailto:info@errestrade.it">info@errestrade.it</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2024 Errestrade Srl. Tutti i diritti riservati. P.IVA 1234567890.
+                </div>
+                <div class="social-links">
+                    <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11 5H6v10h2V8zm-1-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm12 7.27V18h-2v-4.43c0-1.18-.84-1.57-1.4-1.57-.74 0-1.1.48-1.1 1.57V18h-2V8h2v1.27c.4-.7 1.2-1.27 2.2-1.27 1.54 0 2.8 1.26 2.8 3.73v5.54z"></path></svg></a>
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-1.5c-1 0-1.5.5-1.5 1.5V12h3l-.5 3h-2.5v6.8c4.56-1 8-5 8-9.8z"></path></svg></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Cursor Effect ---
+            const cursorDot = document.querySelector('.cursor-dot');
+            const cursorOutline = document.querySelector('.cursor-outline');
+            const hoverables = document.querySelectorAll('a, button, .service-card, .fleet-card, .project-item');
+
+            window.addEventListener('mousemove', function (e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            document.body.addEventListener('mouseleave', () => {
+                cursorDot.classList.add('hidden');
+                cursorOutline.classList.add('hidden');
+            });
+
+            document.body.addEventListener('mouseenter', () => {
+                cursorDot.classList.remove('hidden');
+                cursorOutline.classList.remove('hidden');
+            });
+            
+            hoverables.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    cursorOutline.classList.add('hovered');
+                });
+                item.addEventListener('mouseleave', () => {
+                    cursorOutline.classList.remove('hovered');
+                });
+            });
+
+            // --- Mobile Navigation ---
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const nav = document.getElementById('main-nav');
+            const navLinks = nav.querySelectorAll('a');
+
+            mobileMenuToggle.addEventListener('click', () => {
+                document.body.classList.toggle('nav-open');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    document.body.classList.remove('nav-open');
+                });
+            });
+            
+            // --- Sticky Header & Active Nav Link ---
+            const header = document.getElementById('main-header');
+            const sections = document.querySelectorAll('section[id]');
+            
+            function updateActiveLink() {
+                let index = sections.length;
+
+                while(--index && window.scrollY + 50 < sections[index].offsetTop) {}
+                
+                navLinks.forEach((link) => link.classList.remove('active'));
+                const activeLink = document.querySelector(`.main-nav a[href="#${sections[index].id}"]`);
+                if(activeLink) {
+                   activeLink.classList.add('active');
+                }
+            }
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                updateActiveLink();
+            });
+            
+            updateActiveLink();
+
+            // --- Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
